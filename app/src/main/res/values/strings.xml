@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">TodoList</string>
+    <string name="app_name">To-do List</string>
+    <string name="question_text">What do you need to do?</string>
+    <string name="input_editText">Enter your task here</string>
+    <string name="add_button">Add</string>
 </resources>
