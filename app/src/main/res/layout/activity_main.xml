@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <!--A Question Title-->
     <TextView
         android:id="@+id/question_text_view"
         android:layout_width="match_parent"
@@ -18,6 +19,7 @@
         android:textSize="25sp"
         android:textStyle="bold" />
 
+    <!--User Input-->
     <EditText
         android:id="@+id/input_edit_text"
         android:layout_width="match_parent"
@@ -26,21 +28,23 @@
         android:padding="10dp"
         android:minHeight="48dp"
         android:ems="15"
+        android:inputType="text"
         android:hint="@string/input_editText"
         android:importantForAutofill="no"
-        android:inputType="text"
         tools:ignore="VisualLintTextFieldSize" />
 
+    <!--Add Button-->
     <Button
         android:id="@+id/add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:text="@string/add_button"
         android:drawableLeft="@drawable/add_icon"
+        android:text="@string/add_button"
         android:textColor="@color/material_dynamic_neutral30" />
 
+    <!--To-do List-->
     <ListView
         android:id="@+id/todo_list_view"
         android:layout_width="match_parent"
