@@ -69,11 +69,6 @@ class TodoAdapter(context: Context, tasks: List<String>) : ArrayAdapter<String>(
         // To display the item at the current position in the list
         binding.itemCheckedTextView.text = getItem(position)
 
-        // To remove the item at the current position from the list
-        binding.removeButton.setOnClickListener {
-            remove(getItem(position))
-        }
-
         // To set up the click listener for the checkbox
         binding.itemCheckedTextView.setOnClickListener {
             // To get the current checked state and set it to the opposite value
@@ -88,7 +83,7 @@ class TodoAdapter(context: Context, tasks: List<String>) : ArrayAdapter<String>(
             }
         }
 
-        // To set up the click listener for the remove button
+        // To remove the item at the current position from the list
         binding.removeButton.setOnClickListener {
             remove(getItem(position))
         }
