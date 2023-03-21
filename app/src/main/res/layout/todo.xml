@@ -8,22 +8,19 @@
     android:clickable="true"
     android:focusable="true">
 
-    <!--To-do Checkbox-->
-    <CheckBox
-        android:id="@+id/task_check_box"
-        android:layout_width="wrap_content"
+    <!--Items and checkbox-->
+    <CheckedTextView
+        android:id="@+id/item_checked_text_view"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_centerVertical="true" />
-
-    <!--To-do Items-->
-    <TextView
-        android:id="@+id/task_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/task_check_box"
-        android:layout_toStartOf="@+id/remove_button"
         android:layout_centerVertical="true"
+        android:checkMark="@android:drawable/checkbox_off_background"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:layout_marginEnd="60dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@android:color/black"
         android:textSize="18sp" />
 
     <!--Remove Button-->

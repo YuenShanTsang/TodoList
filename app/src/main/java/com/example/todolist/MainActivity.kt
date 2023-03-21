@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.core.content.res.ResourcesCompat
 import com.example.todolist.databinding.ActivityMainBinding
 import com.example.todolist.databinding.TodoBinding
 
@@ -49,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 }
 
 // Adapter for the items in the list view
-class TodoAdapter(context: Context, tasks: List<String>) : ArrayAdapter<String>(context, R.layout.todo, R.id.task_text_view, tasks) {
+class TodoAdapter(context: Context, tasks: List<String>) : ArrayAdapter<String>(context, R.layout.todo, R.id.item_checked_text_view, tasks) {
 
     // To inflate the layout for each item in the list
     private val inflater = LayoutInflater.from(context)
@@ -66,9 +67,28 @@ class TodoAdapter(context: Context, tasks: List<String>) : ArrayAdapter<String>(
         binding = TodoBinding.bind(view)
 
         // To display the item at the current position in the list
-        binding.taskTextView.text = getItem(position)
+        binding.itemCheckedTextView.text = getItem(position)
 
         // To remove the item at the current position from the list
+        binding.removeButton.setOnClickListener {
+            remove(getItem(position))
+        }
+
+        // To set up the click listener for the checkbox
+        binding.itemCheckedTextView.setOnClickListener {
+            // To get the current checked state and set it to the opposite value
+            val isChecked = binding.itemCheckedTextView.isChecked
+            binding.itemCheckedTextView.isChecked = !isChecked
+
+            // Set the checkbox drawable based on the checked state
+            if (binding.itemCheckedTextView.isChecked) {
+                binding.itemCheckedTextView.checkMarkDrawable = ResourcesCompat.getDrawable(context.resources, android.R.drawable.checkbox_on_background, null)
+            } else {
+                binding.itemCheckedTextView.checkMarkDrawable = ResourcesCompat.getDrawable(context.resources, android.R.drawable.checkbox_off_background, null)
+            }
+        }
+
+        // To set up the click listener for the remove button
         binding.removeButton.setOnClickListener {
             remove(getItem(position))
         }
@@ -77,3 +97,4 @@ class TodoAdapter(context: Context, tasks: List<String>) : ArrayAdapter<String>(
         return view
     }
 }
+
