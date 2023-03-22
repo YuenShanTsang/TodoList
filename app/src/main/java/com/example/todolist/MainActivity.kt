@@ -3,6 +3,7 @@ package com.example.todolist
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,6 +56,9 @@ class TodoAdapter(context: Context, tasks: List<String>) : ArrayAdapter<String>(
     // To inflate the layout for each item in the list
     private val inflater = LayoutInflater.from(context)
 
+    // To store the checked state of each item in the list
+    private val checked = SparseBooleanArray()
+
     // To call for each item in the list and get its position
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         // View binding
@@ -72,11 +76,10 @@ class TodoAdapter(context: Context, tasks: List<String>) : ArrayAdapter<String>(
         // To set up the click listener for the checkbox
         binding.itemCheckedTextView.setOnClickListener {
             // To get the current checked state and set it to the opposite value
-            val isChecked = binding.itemCheckedTextView.isChecked
-            binding.itemCheckedTextView.isChecked = !isChecked
+            checked.put(position, !checked.get(position))
 
             // Set the checkbox drawable based on the checked state
-            if (binding.itemCheckedTextView.isChecked) {
+            if (checked.get(position)) {
                 binding.itemCheckedTextView.checkMarkDrawable = ResourcesCompat.getDrawable(context.resources, android.R.drawable.checkbox_on_background, null)
             } else {
                 binding.itemCheckedTextView.checkMarkDrawable = ResourcesCompat.getDrawable(context.resources, android.R.drawable.checkbox_off_background, null)
@@ -85,11 +88,28 @@ class TodoAdapter(context: Context, tasks: List<String>) : ArrayAdapter<String>(
 
         // To remove the item at the current position from the list
         binding.removeButton.setOnClickListener {
+            // Remove the item from the list
             remove(getItem(position))
+
+            // Update the checked state of the items in the list
+            for (i in position until count) {
+                checked.put(i, checked.get(i + 1))
+            }
+            checked.delete(count)
+
+            // Update the ListView
+            notifyDataSetChanged()
+        }
+
+        // Set the checkbox drawable based on the checked state of the item
+        binding.itemCheckedTextView.isChecked = checked.get(position)
+        if (binding.itemCheckedTextView.isChecked) {
+            binding.itemCheckedTextView.checkMarkDrawable = ResourcesCompat.getDrawable(context.resources, android.R.drawable.checkbox_on_background, null)
+        } else {
+            binding.itemCheckedTextView.checkMarkDrawable = ResourcesCompat.getDrawable(context.resources, android.R.drawable.checkbox_off_background, null)
         }
 
         // To return the item at the current position
         return view
     }
 }
-
